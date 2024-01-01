@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #display {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        #lapTimes {
+            font-size: 1.2em;
+        }
+
+        button {
+            font-size: 1em;
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h1>Stopwatch</h1>
+    <div id="display">00:00:00</div>
+    <button onclick="startStopwatch()">Start</button>
+    <button onclick="pauseStopwatch()">Pause</button>
+    <button onclick="resetStopwatch()">Reset</button>
+    <button onclick="recordLapTime()">Lap</button>
+    <div id="lapTimes"></div>
+</div>
+
+<script>
+    let startTime;
+    let stopwatchInterval;
+    let lapTimes = [];
+
+    function startStopwatch() {
+        startTime = Date.now() - (lapTimes.length > 0 ? lapTimes.reduce((acc, lap) => acc + lap, 0) : 0);
+        stopwatchInterval = setInterval(updateDisplay, 1000);
+    }
+
+    function pauseStopwatch() {
+        clearInterval(stopwatchInterval);
+    }
+
+    function resetStopwatch() {
+        clearInterval(stopwatchInterval);
+        document.getElementById('display').innerText = '00:00:00';
+        lapTimes = [];
+        updateLapTimes();
+    }
+
+    function recordLapTime() {
+        if (startTime) {
+            const lapTime = Date.now() - startTime;
+            lapTimes.push(lapTime);
+            updateLapTimes();
+        }
+    }
+
+    function updateDisplay() {
+        const elapsedTime = Date.now() - startTime;
+        const formattedTime = formatTime(elapsedTime);
+        document.getElementById('display').innerText = formattedTime;
+    }
+
+    function updateLapTimes() {
+        const lapTimesContainer = document.getElementById('lapTimes');
+        lapTimesContainer.innerHTML = '';
+        lapTimes.forEach((lap, index) => {
+            const formattedLapTime = formatTime(lap);
+            lapTimesContainer.innerHTML += `<p>Lap ${index + 1}: ${formattedLapTime}</p>`;
+        });
+    }
+
+    function formatTime(milliseconds) {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const millisecondsRemaining = milliseconds % 1000;
+
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(millisecondsRemaining).padStart(3, '0')}`;
+    }
+</script>
+
+</body>
+</html>
