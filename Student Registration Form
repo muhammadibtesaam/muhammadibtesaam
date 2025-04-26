@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Student Registration Form</title>
+     <style>
+         body {
+             font-family: Arial, sans-serif;
+             background-color: #fefbec; /* Slightly adjusted background */
+             margin: 0;
+             padding: 20px; /* Add padding around the whole page */
+             display: flex;
+             justify-content: center;
+             align-items: flex-start; /* Align container to top */
+             min-height: 100vh;
+         }
+ 
+         .container {
+             width: 80%;
+             max-width: 800px; /* Max width for better readability */
+             background-color: #fefbec; /* Match body background */
+             padding: 20px 30px; /* Add internal padding */
+             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+             border-radius: 5px; /* Optional rounded corners */
+         }
+ 
+         /* --- Header Section --- */
+         .header-container {
+             display: flex;
+             justify-content: space-between;
+             align-items: flex-start; /* Align items to the top */
+             margin-bottom: 30px;
+             padding-bottom: 20px;
+             border-bottom: 1px solid #eee; /* Optional separator */
+         }
+ 
+         .institute-info {
+             flex: 1;
+             display: flex;
+             align-items: center; /* Vertically align icon and text */
+             gap: 15px;
+         }
+ 
+         .logo {
+             font-size: 40px; /* Adjust size as needed */
+             background-color: #dc3545; /* Red color like the book */
+             color: white;
+             padding: 10px 15px;
+             border-radius: 5px;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: 2px solid black;
+             position: relative;
+             height: 50px; /* Control height */
+             width: 45px;  /* Control width */
+             box-sizing: border-box;
+         }
+         /* Simple book icon representation */
+         .logo::before {
+             content: '';
+             position: absolute;
+             left: 5px;
+             top: 50%;
+             transform: translateY(-50%);
+             width: 5px;
+             height: 70%;
+             background-color: black;
+             border-radius: 2px;
+         }
+         .logo::after {
+             content: '';
+             position: absolute;
+             right: 10px;
+             top: 10px;
+             width: 15px;
+             height: 10px;
+             background-color: white;
+             border: 1px solid black;
+             border-radius: 2px;
+         }
+ 
+ 
+         .address p {
+             margin: 2px 0;
+             font-size: 0.9em;
+             color: #333;
+         }
+ 
+         .profile-icon-container {
+             flex-shrink: 0; /* Prevent shrinking */
+             margin-left: 20px; /* Space from address */
+         }
+ 
+         .profile-icon {
+             width: 100px;
+             height: 100px;
+             background-color: #f7941d; /* Orange background */
+             border: 3px solid black;
+             border-radius: 15px; /* Rounded corners */
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             /* Simple line drawing - adjust stroke-width etc. as needed */
+             /* Using inline SVG for the icon */
+             padding: 10px; /* Padding inside the orange box */
+             box-sizing: border-box; /* Include border in size */
+         }
+          .profile-icon svg {
+             width: 100%;
+             height: 100%;
+             stroke: black;
+             stroke-width: 5; /* Make lines thicker */
+             fill: none; /* No fill color */
+             stroke-linecap: round; /* Round line ends */
+             stroke-linejoin: round; /* Round line joins */
+          }
+ 
+ 
+         /* --- Form Title --- */
+         .form-title {
+             text-align: center;
+             margin-top: 0; /* Remove default margin */
+             margin-bottom: 30px;
+             font-size: 1.8em;
+             font-weight: bold;
+             color: #333;
+         }
+ 
+         /* --- Section Title --- */
+         .section-title {
+             background-color: #f7941d; /* Orange background */
+             color: white;
+             padding: 8px 15px;
+             font-weight: bold;
+             margin-top: 25px;
+             margin-bottom: 20px;
+             border-radius: 3px;
+             font-size: 1.1em;
+             position: relative; /* Needed for the bullet */
+             padding-left: 30px; /* Make space for bullet */
+         }
+         .section-title::before {
+              content: '•'; /* Bullet character */
+              position: absolute;
+              left: 12px; /* Position the bullet */
+              top: 50%;
+              transform: translateY(-50%);
+              font-size: 1.2em; /* Adjust bullet size */
+              color: white;
+         }
+ 
+ 
+         /* --- Form Rows & Elements --- */
+         .form-row {
+             display: flex;
+             align-items: center; /* Align items vertically center */
+             margin-bottom: 15px;
+             flex-wrap: wrap; /* Allow wrapping on small screens */
+         }
+ 
+         .form-row label {
+             flex: 0 0 200px; /* Fixed width for labels */
+             min-width: 180px; /* Ensure label has minimum width */
+             font-weight: bold;
+             padding-right: 15px; /* Space between label and input */
+             color: #555;
+             box-sizing: border-box;
+         }
+ 
+         .form-row .input-area {
+              flex: 1; /* Take remaining space */
+              min-width: 250px; /* Minimum width for input area */
+              display: flex; /* Use flex for gender/agreement */
+              align-items: center;
+         }
+ 
+ 
+         .form-row input[type="text"],
+         .form-row input[type="date"], /* Add date type if needed */
+         .form-row input[type="email"], /* Add email type if needed */
+         .form-row input[type="tel"] { /* Add tel type if needed */
+             width: 100%;
+             padding: 8px 10px;
+             border: none; /* Remove default border */
+             background-color: #f0f0f0; /* Light grey background */
+             border-radius: 3px;
+             font-size: 0.95em;
+             box-sizing: border-box;
+         }
+         /* Add a subtle border on focus */
+          .form-row input[type="text"]:focus,
+          .form-row input[type="date"]:focus,
+          .form-row input[type="email"]:focus,
+          .form-row input[type="tel"]:focus {
+             outline: 2px solid #f7941d;
+             outline-offset: 1px;
+          }
+ 
+ 
+         /* --- Specific Row Styling --- */
+         .gender-group, .agreement-group {
+             display: flex;
+             align-items: center;
+             gap: 10px; /* Space between radio/label pairs */
+         }
+ 
+         .gender-group label, .agreement-group label {
+              font-weight: normal !important; /* Override bold label style */
+              flex: initial !important; /* Don't give fixed width */
+              padding-right: 0;
+              margin-left: 3px; /* Space between radio/icon and text */
+              cursor: pointer; /* Indicate clickable */
+         }
+         .gender-group input[type="radio"] {
+             margin-right: 5px; /* Space between radio and its text label */
+         }
+ 
+         /* Spacing between Male and Female */
+         .gender-option:not(:last-child) {
+             margin-right: 25px;
+         }
+ 
+         /* Agreement Icons (Thumbs Up/Down) */
+         .agreement-group input[type="radio"] {
+             display: none; /* Hide the actual radio button */
+         }
+ 
+         .agreement-group label {
+             display: inline-block;
+             width: 30px;  /* Size of the icon */
+             height: 30px;
+             border-radius: 5px;
+             cursor: pointer;
+             background-size: contain;
+             background-repeat: no-repeat;
+             background-position: center;
+             margin-right: 15px; /* Space between icons */
+             border: 2px solid transparent; /* For selected state */
+         }
+ 
+         /* Using inline SVG for icons - more flexible than images */
+         label[for="agree-yes"] {
+             background-color: #28a745; /* Green */
+             /* Simple SVG Thumbs Up */
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='24px' height='24px'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z'/%3E%3C/svg%3E");
+         }
+ 
+         label[for="agree-no"] {
+             background-color: #007bff; /* Blue */
+             /* Simple SVG Thumbs Down */
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='24px' height='24px'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z'/%3E%3C/svg%3E");
+         }
+ 
+         /* Style for when radio is checked */
+         .agreement-group input[type="radio"]:checked + label {
+              border: 2px solid black; /* Highlight selected icon */
+              box-shadow: 0 0 5px rgba(0,0,0,0.3);
+         }
+ 
+         .terms-note {
+             font-size: 0.8em;
+             color: #666;
+             margin-top: 5px;
+             margin-left: 215px; /* Align under the start of input area */
+             display: block; /* Ensure it takes its own line */
+         }
+ 
+         /* --- Signature --- */
+         .signature-area {
+              margin-top: 30px;
+         }
+         .signature-box {
+             height: 80px; /* Taller signature box */
+             width: 350px; /* Wider signature box */
+             background-color: #fff8d4; /* Lighter yellow */
+             border: 1px dashed #ccc; /* Optional border */
+             border-radius: 3px;
+             margin-bottom: 5px;
+         }
+ 
+         .signature-note {
+             font-size: 0.9em;
+             color: #555;
+             margin-top: 5px;
+         }
+ 
+ 
+     </style>
+ </head>
+ <body>
+     <div class="container">
+         <!-- Header -->
+         <div class="header-container">
+             <div class="institute-info">
+                 <div class="logo"></div> <!-- Placeholder for actual logo image/icon -->
+                 <div class="address">
+                     <p style="font-weight: bold;">MUSLIM YOUTH UNIVERSITY</p>
+                     <p> 111/4,</p>
+                     <p>japan Road,</p>
+                     <p>Kashmir</p>
+                     <p>Tel: (021) 111 123 456</p>
+                     <p>E-mail: ibtesaammuhammad@gmail.com</p>
+                 </div>
+             </div>
+             <div class="profile-icon-container">
+                  <div class="profile-icon">
+                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                         <!-- Head -->
+                         <circle cx="50" cy="30" r="15"/>
+                         <!-- Body -->
+                         <path d="M 25 60 A 25 25 0 0 1 75 60 V 80 H 25 Z" />
+                     </svg>
+                 </div>
+             </div>
+         </div>
+ 
+         <h1 class="form-title">Student Registration Form</h1>
+ 
+         <!-- Use a <form> tag semantically -->
+         <form action="#" method="post">
+ 
+             <!-- Student Information Section -->
+             <div class="section-title">Student Information</div>
+ 
+             <div class="form-row">
+                 <label for="full-name">Full Name:</label>
+                 <div class="input-area">
+                     <input type="text" id="full-name" name="full_name" value="Muhammad Ibtesaam Quaid">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="dob">Date of Birth:</label>
+                 <div class="input-area">
+                     <input type="text" id="dob" name="dob" placeholder="DD Month YYYY" value="3 January 2003"> <!-- Use text for flexible format or type="date" -->
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label>Gender:</label>
+                 <div class="input-area gender-group">
+                     <span class="gender-option">
+                         <input type="radio" id="male" name="gender" value="male" checked>
+                         <label for="male">Male</label>
+                     </span>
+                     <span class="gender-option">
+                         <input type="radio" id="female" name="gender" value="female">
+                         <label for="female">Female</label>
+                     </span>
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="nationality">Nationality:</label>
+                 <div class="input-area">
+                     <input type="text" id="nationality" name="nationality" value="Pakistani">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="contact-info">Contact Information:</label>
+                 <div class="input-area">
+                     <input type="text" id="contact-info" name="contact_info" placeholder="Phone or Email" value="+923464510283">
+                 </div>
+             </div>
+ 
+             <!-- Parent/Guardian Information Section -->
+             <div class="section-title">Parent/Guardian Information</div>
+ 
+             <div class="form-row">
+                 <label for="parent-name">Parent/Guardian Name(s):</label>
+                 <div class="input-area">
+                     <input type="text" id="parent-name" name="parent_name" value="Muhammad Riaz Khan">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="relationship">Relationship to Student:</label>
+                 <div class="input-area">
+                     <input type="text" id="relationship" name="relationship" value="Father">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="parent-contact">Contact Information (Phone Number, Email):</label>
+                 <div class="input-area">
+                     <input type="text" id="parent-contact" name="parent_contact" value="03118941688">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="emergency-contact">Emergency Contact Information:</label>
+                 <div class="input-area">
+                      <input type="text" id="emergency-contact" name="emergency_contact" value="92">
+                 </div>
+             </div>
+ 
+             <!-- Education Information Section -->
+             <div class="section-title">Education Information</div>
+ 
+             <div class="form-row">
+                 <label for="school-name">School/Institution Name:</label>
+                 <div class="input-area">
+                     <input type="text" id="school-name" name="school_name" value="MY University Islamabad">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="grad-date">Graduation Date :<br>(if applicable)</label>
+                 <div class="input-area">
+                     <input type="text" id="grad-date" name="grad_date" placeholder="Month YYYY" value="15 July  2026">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="how-heard">How did you hear about us?</label>
+                 <div class="input-area">
+                     <input type="text" id="how-heard" name="how_heard" value="From Facebook">
+                 </div>
+             </div>
+             <div class="form-row">
+                 <label for="why-interested">Why are you interested in our program?</label>
+                 <div class="input-area">
+                     <input type="text" id="why-interested" name="why_interested"> <!-- Left empty as per instructions -->
+                 </div>
+             </div>
+ 
+             <!-- Agreement Section -->
+              <div class="form-row" style="margin-top: 30px;"> <!-- Add extra top margin -->
+                 <label>Are you Agree to the terms and conditions of enrollment?</label>
+                 <div class="input-area agreement-group">
+                     <input type="radio" id="agree-yes" name="agreement" value="yes" checked>
+                     <label for="agree-yes"></label> <!-- Thumb Up -->
+ 
+                     <input type="radio" id="agree-no" name="agreement" value="no">
+                     <label for="agree-no"></label> <!-- Thumb Down -->
+                 </div>
+             </div>
+              <span class="terms-note">* Terms and Conditions</span>
+ 
+ 
+             <!-- Signature Section -->
+             <div class="signature-area">
+                 <label class="signature-note">Signature of the student and, if the student is a minor, a parent or guardian</label>
+                 <div class="signature-box"></div>
+             </div>
+ 
+             <!-- Add a submit button if needed -->
+             <!--
+             <div style="text-align: center; margin-top: 30px;">
+                 <button type="submit" style="padding: 10px 20px; background-color: #f7941d; color: white; border: none; border-radius: 5px; font-size: 1em; cursor: pointer;">Register</button>
+             </div>
+             -->
+ 
+         </form>
+     </div>
+ </body>
+ </html>
